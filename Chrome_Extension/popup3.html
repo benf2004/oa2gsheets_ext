@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Amazon OA to Gsheets extension</title>
+    <!--February 26, 2022-->
+    <style>
+        body {
+            width: 350px
+        }
+
+        img {
+            width: 40%;
+            height: 40%;
+            padding: 10px;
+        }
+        nav {
+            margin-left: 10px;
+        }
+        h4 {
+            text-align: center;
+        }
+        #email_div{
+            width: 300px;
+            margin-left: 25px
+        }
+        .btn {
+            margin: auto
+        }
+        h1 {
+            text-align: center
+        }
+        #monthly_div, #lifetime_div{
+            border: 1px solid dimgrey;
+        }
+        #outer1, #outer2{
+            padding: 15px
+        }
+        #oa2gsheets, #oa2gsheets_lifetime{
+            margin-left: 95px;
+        }
+        #dashboard{
+            margin-left: 55px;
+            margin-bottom: 10px;
+        }
+        .btn-funky-moon {
+            background: #A770EF;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+            border: 3px solid #eee;
+        }
+
+        #trial1{
+            margin-left: 93px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<img src="logo.png">
+
+<nav>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Payment</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="picker" href="https://www.oa2gsheets.com/picker" target="_blank">Link Gsheet</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="https://oa2gsheets.freshdesk.com/support/solutions" target="_blank">Support</a>
+    </li>
+</ul>
+</nav>
+
+<br>
+
+<div class = 'flex justify-content-center d-none' id="trial_div">
+    <button class="col btn btn-funky-moon mb-3" id="trial1">Start 7-day Free Trial</button>
+    <br/>
+    <div id="email_div" class="input-group d-none">
+        <input id="email" value="" type="email" class="form-control" placeholder="Enter your email" aria-label="email" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button id="trial2" class="btn btn-outline-success" type="button">Start</button>
+        </div>
+    </div>
+</div>
+
+<br>
+<a id="setup" style="margin-left: 15px" target="_blank" href="https://oa2gsheets.freshdesk.com/support/solutions/articles/73000562148--how-do-i-set-up-oa2gsheets-">
+    Setup Help <i class="fa-solid fa-arrow-up-right-from-square"></i>
+</a>
+<br>
+<div id="outer1" >
+<div id="monthly_div" class="container" class="d-flex justify-content-center">
+    <h1>Monthly Plan</h1>
+    <h4>$8/month</h4>
+    <ul>
+        <li>Export product info to Google Sheets w/ one click</li>
+        <li>Profitability dashboard</li>
+        <li>Export as formulas (dynamic stats)</li>
+        <li>Customize columns</li>
+        <li>Affordable monthly price</li>
+        <li>Upgrade to lifetime at anytime</li>
+    </ul>
+    <div style="padding: 10px" id="button_div">
+        <button class="btn btn-primary" type="button" id="oa2gsheets">Buy Now</button>
+    </div>
+    <div style="display:none" id="dash_div">
+        <button class="btn btn-primary" type="button" id="dashboard">Manage Subscription</button>
+    </div>
+</div>
+</div>
+<div id="outer2">
+    <div id="lifetime_div" class="container" class="d-flex justify-content-center">
+        <h1>Lifetime Plan</h1>
+        <h4>$179</h4>
+        <ul>
+            <li>All the features of monthly</li>
+            <li>One-time payment</li>
+        </ul>
+        <div style="padding: 10px" id="l_div">
+            <button class="btn btn-primary" type="button" id="oa2gsheets_lifetime">Buy Now</button>
+            <br>
+            <div class="mb-2"></div>
+            <p><strong>Warning:</strong> clicking the above button will end your free trial immediately.</p>
+        </div>
+        <div style="padding: 5px" class="d-none" id="upgrade_div">
+            <button style="margin-left: 75px" class="btn btn-primary" type="button" id="updgrade_button">Upgrade Now</button>
+            <br>
+            <div class="mb-2"></div>
+            <button style="margin-left: 50px" class="btn btn-outline-danger d-none" id="confirm">Confirm Cancellation</button>
+            <div class="" id="cancel_div">
+                <p style="font-size: 15px">Before upgrading, you MUST <strong>manually</strong> <a id="cancel" href="#upgrade_div">cancel</a> your monthly subscription.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="thank_you" class="d-none">
+        <p>Thanks for buying lifetime! 🥳 Enjoy the extension!</p>
+    </div>
+</div>
+
+
+<iframe src="" id="frame"></iframe>
+<script src="ExtPay.js"></script>
+<script src="popup3.js">
+</script>
+</body>
+</html>
