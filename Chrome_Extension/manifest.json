@@ -44,7 +44,6 @@
     "cookies",
     "tabs",
     "storage",
-    "activeTab",
     "webNavigation"
   ]
 }
