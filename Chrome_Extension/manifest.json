@@ -45,7 +45,6 @@
  ],
   "permissions": [
     "cookies",
-    "tabs",
     "storage",
     "webNavigation"
   ]
