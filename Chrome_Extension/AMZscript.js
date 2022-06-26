@@ -31,7 +31,7 @@ function get_domain_id() {
         "www.amazon.it" : "8",
         "www.amazon.es" : "9",
         "www.amazon.in" : "10",
-        "www.amazon.com.mx" : "1"
+        "www.amazon.com.mx" : "11"
     }
     console.log(host_dict[host_name])
     return host_dict[host_name]
