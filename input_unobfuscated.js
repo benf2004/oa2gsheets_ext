@@ -1,6 +1,6 @@
 async function main() {
     async function keepa(asin, d_id) {
-        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + 'asin=' + asin + '&stats=0')
+        let response = await fetch('https://api.keepa.com/product?key=' + jumbo + '&domain=' + d_id + '&asin=' + asin + '&stats=0')
         return response.json()
     }
 
@@ -86,6 +86,39 @@ async function main() {
         return (Math.round(num * 100) / 100).toFixed(2);
     }
 
+    function isSmallLight(dimen, oz, price){
+        let fee = -1;
+        if (dimen[0] < 15 && dimen[1] < 12 && dimen[2] < 0.75 && price <= 10) {
+            if (oz <= 6){
+                fee = 2.35
+            }
+            else if (6 < oz <= 12){
+                fee = 2.49
+            }
+            else if (12 < oz <= 16){
+                fee = 3.00
+            }
+        }
+        else if (dimen[0] < 18 && dimen[1] < 14 && dimen[2] < 8 && price <= 10) {
+            if (oz <= 6){
+                fee = 2.53
+            }
+            else if (6 < oz <= 12){
+                fee = 2.80
+            }
+            else if (12 < oz <= 16){
+                fee = 3.59
+            }
+            else if (16 < oz <= 32){
+                fee = 4.21
+            }
+            else if (32 < oz <= 48){
+                fee = 4.94
+            }
+        }
+        return fee
+    }
+
 // updates necessary stats
     function updateStats() {
         //TODO: Determine what other stats to show (sales rank etc)
@@ -123,6 +156,15 @@ async function main() {
         return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, top_per]
     } // end update stats
 
+    function mmToIn(val) {
+        let num = parseFloat(val)
+        return num/25.4
+    }
+
+    function gramToOz(val) {
+        let num = parseFloat(val)
+        return num/28.35
+    }
 // sets asin and fileID vars from URL
     const jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
     let url = window.location.search
@@ -130,12 +172,22 @@ async function main() {
     const asin = decodeURI(urlParams.get("asin"))
     const fileID = decodeURI(urlParams.get("fileID"))
     const is_dynam = decodeURI(urlParams.get('dy'))
-    const domain = decodeURI("d_id")
+    const domain = decodeURI(urlParams.get("d_id"))
     let order = urlParams.get("o")
 
     const object1 = await keepa(asin, domain);
     const product = await object1['products'][0];
-    var title = product['title'];
+    var title = await product['title'];
+    var length = await mmToIn(product['packageLength'])
+    var height = await mmToIn(product['packageHeight'])
+    var width = await mmToIn(product['packageWidth'])
+    var dimensions = [length, height, width]
+    console.log(dimensions)
+    dimensions.sort(function(a, b){return b-a})
+    console.log("DIMENSIONS:")
+    console.log(dimensions)
+    var weight = await gramToOz(product['packageWeight'])
+    console.log(weight)
     let pickPack = await product["fbaFees"]['pickAndPackFee'] / 100;
     let root_cat_id = await product['rootCategory']
     const cats = await get_cats(root_cat_id, domain);
@@ -143,10 +195,14 @@ async function main() {
     let highest = await cats['highestRank']
     const currentStats = await object1['products'][0]['stats']['current'];
     let price = await currentStats[1] / 100;
+    let sl_fee = isSmallLight(dimensions, weight, price)
     let cats2 = await product["categoryTree"]
     const refPer = detrmRefPer(price, cats2)
     document.getElementById("price").value = price;
     document.getElementById("ship").value = pickPack;
+    if (sl_fee !== -1) {
+        document.getElementById("ship").value = sl_fee
+    }
     updateStats()
 
     async function sendInfo() {

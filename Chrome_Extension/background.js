@@ -24,6 +24,7 @@ const website = 'http://www.oa2gsheets.com/'
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
         console.log("TRIGGERED")
+        if (request.type ==
         getCookies(website, "fileID", function (id) {
             console.log(id);
             chrome.storage.sync.set({fileID: id}, function () {

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>OA to Gsheets Input</title>
+  <!--February 26, 2022-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="input.css" rel="stylesheet">
+  <link href="toggle-switchy.css" rel="stylesheet">
+<body>
+<div id="div1" class="container mt-3">
+  <div class="">
+    <div class="row">
+      <div class="column">
+        <p><strong>COGS: </strong> <input type="number" id="cogs" value="" autocomplete="off" class="inputs"/>
+        <p><strong>ASIN: </strong><span id="asin"></span>&emsp; &emsp;
+        <p><strong>Profit ($): </strong><span id="profit"></span></p>
+        <p><strong>Referral Fee: </strong><span id="ref_fee"></span></p>
+        <p><strong>Ship Fee: </strong> <input type="number" id="ship" value="" autocomplete="off" class="inputs"/>
+        <p><strong>Other Fees: </strong><input type="number" id="other" value="" autocomplete="off" class="inputs"/>
+        <p><strong>Total Fees: </strong><span id="total"></span></p>
+        <p><strong>Source URL: </strong><input type="url" id="source" value="" autocomplete="off" class="inputs"/>
+        <div class="button" id="send">
+          Send To Gsheets
+          <div></div>
+          <i id="icon" class="fa-brands fa-google-drive"></i>
+        </div>
+      </div>
+      <div class="column">
+        <p><strong>Price: </strong> <input id="price" type="number" value="" autocomplete="off" type="text" class="inputs"/></p>
+        <p><strong>ROI: </strong><span id="roi"></span></p>
+        <p><strong>Margin: </strong><span id="margin"></span></p>
+        <p><strong>Sales Rank: </strong><span id="sr"></span></p>
+        <p><strong>Category: </strong><span id="category"></span></p>
+        <p><strong>Top: </strong><span id="top"></span></p>
+        <p><strong>Drops: </strong><span id="drops"></span></p>
+        <p><strong>Notes: </strong><input type="text" id="notes" value="" autocomplete="off" class="inputs"/></p>
+        <p><strong>Small & Light: </strong>
+        <label for="s_l" class="toggle-switchy" data-text="false" data-size="sm" data-style="rounded">
+          <input disabled type="checkbox" id="s_l">
+          <span class="toggle">
+		    <span class="switch"></span>
+          </span>
+        </label>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<iframe src="" id="frame"></iframe>
+<script src="input_unobfuscated.js">
+</script>
+</body>
+</html>
