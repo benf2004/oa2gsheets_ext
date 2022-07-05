@@ -121,7 +121,7 @@ async function main() {
 
 // updates necessary stats
     function updateStats() {
-        //TODO: Determine what other stats to show (sales rank etc)
+        //TODO: Determine what other stats to show
         console.log("updating")
 
         // vars from docuent
@@ -143,6 +143,20 @@ async function main() {
         let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit * 100 / cogs)
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
+        if (sl_fee !== parseFloat(ship)){
+            document.getElementById('s_l').checked = false
+        }
+        if (isSmallLight(dimensions, weight, price) !== -1){
+            document.getElementById('s_l').disabled = false
+            if (document.getElementById('s_l').checked === true){
+                document.getElementById('ship').value = sl_fee
+            }
+        }
+        else {
+            document.getElementById('s_l').checked = false
+            updateSL()
+            document.getElementById('s_l').disabled = true
+        }
         document.getElementById("asin").innerHTML = asin
         document.getElementById("profit").innerHTML = profit;
         document.getElementById("ref_fee").innerHTML = refFee;
@@ -155,6 +169,15 @@ async function main() {
         document.getElementById("drops").innerHTML = drops
         return [price, cogs, ship, other, stats, drop30, drop90, drop180, drops, sales_rank, refFee, totFees, profit, margin, roi1, top_per]
     } // end update stats
+
+    function updateSL() {
+        if (document.getElementById('s_l').checked === true){
+            document.getElementById("ship").value = sl_fee
+        }
+        else {
+            document.getElementById("ship").value = pickPack;
+        }
+    }
 
     function mmToIn(val) {
         let num = parseFloat(val)
@@ -201,6 +224,7 @@ async function main() {
     document.getElementById("price").value = price;
     document.getElementById("ship").value = pickPack;
     if (sl_fee !== -1) {
+        document.getElementById("s_l").checked = true;
         document.getElementById("ship").value = sl_fee
     }
     updateStats()
@@ -230,6 +254,8 @@ async function main() {
     document.getElementById("other").addEventListener("input", updateStats);
     document.getElementById("cogs").addEventListener("input", updateStats);
     document.getElementById("notes").addEventListener("input", updateStats);
+    document.getElementById("ship").addEventListener("input", updateStats);
+    document.getElementById("s_l").addEventListener("click", updateSL)
     document.getElementById("send").addEventListener("click", sendInfo);
 }
 main()
