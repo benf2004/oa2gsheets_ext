@@ -149,7 +149,7 @@ async function main() {
         if (isSmallLight(dimensions, weight, price) !== -1){
             document.getElementById('s_l').disabled = false
             if (document.getElementById('s_l').checked === true){
-                document.getElementById('ship').value = sl_fee
+                document.getElementById('ship').value = isSmallLight(weight, dimensions, price)
             }
         }
         else {
