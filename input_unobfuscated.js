@@ -173,7 +173,7 @@ async function main() {
 
     function updateSL() {
         if (document.getElementById('s_l').checked === true){
-            document.getElementById("ship").value = sl_fee
+            document.getElementById("ship").value = isSmallLight(weight, dimensions, price)
         }
         else {
             document.getElementById("ship").value = pickPack;
