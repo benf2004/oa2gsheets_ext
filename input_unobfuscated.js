@@ -143,13 +143,14 @@ async function main() {
         let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit * 100 / cogs)
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
-        if (sl_fee !== parseFloat(ship)){
+        let sl_update = isSmallLight(weight, dimensions, price)
+        if (sl_update !== parseFloat(ship)){
             document.getElementById('s_l').checked = false
         }
-        if (isSmallLight(dimensions, weight, price) !== -1){
+        if (sl_update !== -1){
             document.getElementById('s_l').disabled = false
             if (document.getElementById('s_l').checked === true){
-                document.getElementById('ship').value = isSmallLight(weight, dimensions, price)
+                document.getElementById('ship').value = sl_update
             }
         }
         else {
