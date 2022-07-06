@@ -26,7 +26,11 @@ iframe {
 }
 .column {
     float: left;
-    width: 225px;
+    width: 200px;
+}
+
+#right {
+    margin-left: 10px;
 }
 
 /* Clear floats after the columns */

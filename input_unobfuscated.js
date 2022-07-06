@@ -124,6 +124,14 @@ async function main() {
         //TODO: Determine what other stats to show
         console.log("updating")
 
+        if (document.getElementById("body").offsetWidth < 360) {
+            document.getElementById('right').style.marginLeft = "0px"
+        }
+        else {
+            let marg = (bod_width - 340) / 2
+            document.getElementById('right').style.marginLeft = marg + "px"
+        }
+
         // vars from docuent
         let price = Number(document.getElementById("price").value)
         let cogs = Number(document.getElementById("cogs").value)
@@ -143,18 +151,18 @@ async function main() {
         let margin = round_2(profit * 100 / price)
         let roi1 = round_2(profit * 100 / cogs)
         let top_per = ((sales_rank / highest) * 100).toFixed(3)
-        if (sl_fee !== parseFloat(ship)){
+        console.log(isSmallLight(dimensions,weight,price))
+        if (isSmallLight(dimensions,weight,price) !== parseFloat(ship)){
             document.getElementById('s_l').checked = false
         }
         if (isSmallLight(dimensions, weight, price) !== -1){
             document.getElementById('s_l').disabled = false
             if (document.getElementById('s_l').checked === true){
-                document.getElementById('ship').value = sl_fee
+                document.getElementById('ship').value = isSmallLight(dimensions, weight, price)
             }
         }
         else {
             document.getElementById('s_l').checked = false
-            updateSL()
             document.getElementById('s_l').disabled = true
         }
         document.getElementById("asin").innerHTML = asin
@@ -172,7 +180,8 @@ async function main() {
 
     function updateSL() {
         if (document.getElementById('s_l').checked === true){
-            document.getElementById("ship").value = sl_fee
+            let price = Number(document.getElementById("price").value)
+            document.getElementById("ship").value = isSmallLight(dimensions, weight, price)
         }
         else {
             document.getElementById("ship").value = pickPack;
@@ -188,7 +197,19 @@ async function main() {
         let num = parseFloat(val)
         return num/28.35
     }
-// sets asin and fileID vars from URL
+
+    // shrink columns
+    console.log(document.getElementById('body').offsetWidth)
+    let bod_width = document.getElementById("body").offsetWidth
+    if (bod_width < 360) {
+        document.getElementById('right').style.marginLeft = "0px"
+    }
+    else {
+        let marg = (bod_width - 340) / 2
+        document.getElementById('right').style.marginLeft = marg + "px"
+    }
+
+    // sets asin and fileID vars from URL
     const jumbo = "bcttbfvkurmk8mqm5hdo5fvdvarqiibhpehs2pshpe535fpkov2u8b107me6q79m";
     let url = window.location.search
     const urlParams = new URLSearchParams(url);
@@ -259,4 +280,3 @@ async function main() {
     document.getElementById("send").addEventListener("click", sendInfo);
 }
 main()
-
