@@ -24,7 +24,6 @@ const website = 'http://www.oa2gsheets.com/'
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
         console.log("TRIGGERED")
-        if (request.type ==
         getCookies(website, "fileID", function (id) {
             console.log(id);
             chrome.storage.sync.set({fileID: id}, function () {
@@ -100,12 +99,12 @@ chrome.runtime.onMessage.addListener(
                 extpay.getUser().then(user => {
                     console.log("MESSAGE RECIEVED")
                     const now = new Date();
-                    const days_21 = 1000*60*60*24*21 // in milliseconds
+                    const days_7 = 1000*60*60*24*7 // in milliseconds
                     let send;
                     if (user.paid) {
                         send = "true"
                     }
-                    else if (user.trialStartedAt && (now - user.trialStartedAt) < days_21){
+                    else if (user.trialStartedAt && (now - user.trialStartedAt) < days_7){
                         send = "true"
                     }
                     else {

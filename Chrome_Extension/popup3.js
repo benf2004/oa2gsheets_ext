@@ -69,8 +69,8 @@ document.getElementById('confirm').addEventListener('click', lifetime)
 
 function check_trial(user) {
     const now = new Date();
-    const days_21 = 1000*60*60*24*21 // in milliseconds
-    if (user.trialStartedAt && (now - user.trialStartedAt) < days_21) {
+    const days_7 = 1000*60*60*24*7 // in milliseconds
+    if (user.trialStartedAt && (now - user.trialStartedAt) < days_7) {
         return true
     }
     else {
