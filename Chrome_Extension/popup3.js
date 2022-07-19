@@ -1,4 +1,4 @@
-function monthly() {
+function monthly(win_type = "payment") {
     console.log("WORKING!")
     chrome.storage.sync.get(['oa_plan'], function (result) {
         let plan = result.oa_plan
@@ -9,24 +9,38 @@ function monthly() {
                 chrome.storage.sync.set({oa_plan: 'oa2gsheets'})
                 chrome.runtime.sendMessage('monthly_activated')
                 const extpay = ExtPay('oa2gsheets')
-                extpay.openPaymentPage()
+                if (win_type === "login"){
+                    extpay.openLoginPage()
+                }
+                else {
+                    extpay.openPaymentPage()
+                }
             })
         }
         else {
             const extpay = ExtPay('oa2gsheets')
-            extpay.openPaymentPage()
-        }
+            if (win_type === "login"){
+                extpay.openLoginPage()
+            }
+            else {
+                extpay.openPaymentPage()
+            }        }
     })
 }
 
-function lifetime(){
+function lifetime(win_type = "payment"){
     chrome.storage.local.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'])
     chrome.storage.sync.remove(['extensionpay_api_key','extensionpay_installed_at', "extensionpay_user", 'oa_plan'], function() {
         console.log("LIFETIME CLICKED")
         chrome.storage.sync.set({oa_plan: 'oa2gsheets-lifetime'}, function() {
             chrome.runtime.sendMessage('lifetime_activated')
             const extpay = ExtPay('oa2gsheets-lifetime')
-            extpay.openPaymentPage()
+            if (win_type === "login"){
+                extpay.openLoginPage()
+            }
+            else {
+                extpay.openPaymentPage()
+            }
         })
     })
 }
@@ -58,6 +72,26 @@ function confirm_cancel() {
     document.getElementById("confirm").classList.remove('d-none');
 }
 
+function login1() {
+    document.getElementById('login2').classList.remove('d-none')
+}
+
+function l_login(){
+    lifetime("login")
+}
+
+function m_login(){
+    monthly("login")
+}
+
+function picker_order(){
+    chrome.storage.sync.get({order: "none"}, function(result){
+        let order = result.order
+        console.log(result)
+        window.open("https://www.oa2gsheets.com/picker?order="+ order)
+    })
+}
+
 document.getElementById('dashboard').addEventListener('click', open_dashboard)
 document.getElementById('oa2gsheets').addEventListener("click", monthly)
 document.getElementById('oa2gsheets_lifetime').addEventListener("click", lifetime)
@@ -66,6 +100,10 @@ document.getElementById('trial2').addEventListener("click", start_trial)
 document.getElementById('updgrade_button').addEventListener("click", confirm_cancel)
 document.getElementById('cancel').addEventListener('click', open_dashboard)
 document.getElementById('confirm').addEventListener('click', lifetime)
+document.getElementById('already_paid').addEventListener("click", login1)
+document.getElementById('lifetime').addEventListener("click", l_login)
+document.getElementById('monthly').addEventListener('click', m_login)
+document.getElementById('picker').addEventListener('click', picker_order)
 
 function check_trial(user) {
     const now = new Date();
@@ -88,7 +126,8 @@ async function is_paid() {
             handle_paid(true)
         }
         else if (check_trial(user) === true){
-            handle_paid("trial")
+            let days = get_days_left(user)
+            handle_paid({type: "trial", days_left: days})
         }
         else if (user.paid === false){
             if (user.trialStartedAt === null){
@@ -99,6 +138,14 @@ async function is_paid() {
             }
         }
     });
+}
+
+function get_days_left(user) {
+    const now = new Date();
+    const days_7 = 1000*60*60*24*7 // in milliseconds
+    let mils_left = user.trialStartedAt - now + days_7
+    let days_left = Math.ceil(mils_left/(1000*60*60*24))
+    return days_left
 }
 
 function handle_paid(p) {
@@ -126,8 +173,10 @@ function handle_paid(p) {
             }
         })
     }
-    else if (paid === "trial"){
+    else if (paid.type === "trial"){
         document.getElementById('trial_div').remove()
+        document.getElementById('trial_started').classList.remove('d-none')
+        document.getElementById('days_left').innerHTML = paid.days_left
     }
     else if (paid === "no_trial") {
         console.log("UNPAID")
@@ -136,6 +185,8 @@ function handle_paid(p) {
         document.getElementById("picker").className = 'nav-link disabled'
     }
     else {
+        document.getElementById('trial_started').classList.remove('d-none')
+        document.getElementById('memo').innerHTML = "Your trial has ended. \n Please select a plan to continue using OA2Gsheets."
         document.getElementById("picker").className = 'nav-link disabled'
     }
 }

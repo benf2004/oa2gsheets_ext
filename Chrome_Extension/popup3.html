@@ -52,7 +52,7 @@
         }
 
         #trial1{
-            margin-left: 93px;
+            margin-left: 90px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -67,7 +67,7 @@
         <a class="nav-link active" aria-current="page" href="#">Payment</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="picker" href="https://www.oa2gsheets.com/picker" target="_blank">Link Gsheet</a>
+        <button class="nav-link" id="picker">Link Gsheet</button>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="https://oa2gsheets.freshdesk.com/support/solutions" target="_blank">Support</a>
@@ -88,6 +88,10 @@
     </div>
 </div>
 
+<div id="trial_started" class="d-none">
+    <p id="memo" class="text-center">Your trial will end in <strong class="text-danger" id="days_left"></strong> days.</p>
+</div>
+
 <br>
 <a id="setup" style="margin-left: 15px" target="_blank" href="https://oa2gsheets.freshdesk.com/support/solutions/articles/73000562148--how-do-i-set-up-oa2gsheets-">
     Setup Help <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -96,7 +100,7 @@
 <div id="outer1" >
 <div id="monthly_div" class="container" class="d-flex justify-content-center">
     <h1>Monthly Plan</h1>
-    <h4>$8/month</h4>
+    <h4>$9/month</h4>
     <ul>
         <li>Export product info to Google Sheets w/ one click</li>
         <li>Profitability dashboard</li>
@@ -116,7 +120,7 @@
 <div id="outer2">
     <div id="lifetime_div" class="container" class="d-flex justify-content-center">
         <h1>Lifetime Plan</h1>
-        <h4>$179</h4>
+        <h4>$149</h4>
         <ul>
             <li>All the features of monthly</li>
             <li>One-time payment</li>
@@ -125,7 +129,7 @@
             <button class="btn btn-primary" type="button" id="oa2gsheets_lifetime">Buy Now</button>
             <br>
             <div class="mb-2"></div>
-            <p><strong>Warning:</strong> clicking the above button will end your free trial immediately.</p>
+            <p><strong class="text-danger">Warning:</strong> clicking the above button will end your free trial immediately.</p>
         </div>
         <div style="padding: 5px" class="d-none" id="upgrade_div">
             <button style="margin-left: 75px" class="btn btn-primary" type="button" id="updgrade_button">Upgrade Now</button>
@@ -141,10 +145,14 @@
     <div id="thank_you" class="d-none">
         <p>Thanks for buying lifetime! 🥳 Enjoy the extension!</p>
     </div>
+    <p class="text-align-center">Already paid? <a id="already_paid" href="#already_paid">Log in here.</a></p>
+    <div id="login2" class="d-none">
+        <span>Select your plan: </span>
+        <button class="btn btn-sm btn-outline-primary" id="monthly">Monthly</button> &emsp; <button class="btn btn-sm btn-outline-primary" id="lifetime">Lifetime</button>
+    </div>
 </div>
 
 
-<iframe src="" id="frame"></iframe>
 <script src="ExtPay.js"></script>
 <script src="popup3.js">
 </script>
