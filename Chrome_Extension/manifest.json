@@ -40,7 +40,9 @@
   "web_accessible_resources": [
     {
       "resources": ["amz.html"],
-      "matches": ["https://www.amazon.com/*", "https://www.amazon.ca/*", "https://www.amazon.co.uk/*", "https://www.amazon.com.mx/*"]
+      "matches": ["https://www.amazon.com/*", "https://www.amazon.ca/*", "https://www.amazon.co.uk/*",
+        "https://www.amazon.com.mx/*", "https://www.amazon.de/*", "https://www.amazon.fr/*", "https://www.amazon.co.jp/*",
+        "https://www.amazon.it/*", "https://www.amazon.es/*", "https://www.amazon.in/*"]
     }
  ],
   "permissions": [
