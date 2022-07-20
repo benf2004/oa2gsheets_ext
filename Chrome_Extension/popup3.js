@@ -160,11 +160,14 @@ function handle_paid(p) {
                 document.getElementById("upgrade_div").classList.remove('d-none');
                 document.getElementById('dash_div').style.display = 'inline'
                 document.getElementById('trial_div').remove()
+                document.getElementById('login').remove()
+                document.getElementById('trial_started').remove()
                 document.getElementById('oa2gsheets_lifetime').style.marginLeft = "70px";
                 document.getElementById('oa2gsheets_lifetime').innerHTML = "Upgrade Now"
-                document.getElementById('oa2gsheets-lifetime').classList.add('disabled')
             }
             else {
+                document.getElementById('trial_started').remove()
+                document.getElementById('login').remove()
                 document.getElementById('monthly_div').remove()
                 document.getElementById('lifetime_div').remove()
                 document.getElementById('setup').remove()
