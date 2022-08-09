@@ -63,7 +63,8 @@ function main () {
                 let s = re.spreadsheets
                 var fileID; var my_order; var asin; var is_dynam; var domain_id
                 for (let each of s){
-                    if (each.def === true){
+                    if (each.def == true){
+                        console.log(each)
                         is_dynam = each.is_dynam
                         fileID = each.file_id
                         my_order = each.order

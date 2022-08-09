@@ -15,7 +15,15 @@ function add_config() {
     var c2 = r.insertCell(1)
     c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Setup</button>"
     var c3 = r.insertCell(2)
-    c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\"> </div>"
+    let is_def;
+    if (r.rowIndex === 1) {
+        c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\" checked> </div>"
+        is_def = true
+    }
+    else{
+        c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\"> </div>"
+        is_def = false
+    }
     var c4 = r.insertCell(3)
     c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
     var c5 = r.insertCell(4)
@@ -24,7 +32,7 @@ function add_config() {
 
     chrome.storage.sync.get({spreadsheets: []}, function(result){
         let re = result.spreadsheets
-        re.push({row_num: r.rowIndex, order: "none", is_dynam: null, file_id: null, name:"unnamed", def:false})
+        re.push({row_num: r.rowIndex, order: "none", is_dynam: null, file_id: null, name:"unnamed", def:is_def})
         chrome.storage.sync.set({spreadsheets: re})
     })
 }
