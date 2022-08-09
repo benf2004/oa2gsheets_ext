@@ -23,28 +23,23 @@ const website = 'http://www.oa2gsheets.com/'
 
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
-        console.log("TRIGGERED")
-        getCookies(website, "fileID", function (id) {
-            console.log(id);
-            chrome.storage.sync.set({fileID: id}, function () {
-                console.log('Value is set to ' + id);
+        if (request.message === "update_order") {
+            console.log("TRIGGERED")
+            getCookies(website, "fileID", function (f_id) {
+                getCookies(website, "order", function (order) {
+                    getCookies(website, 'is_dynam', function (is_dynam) {
+                        chrome.storage.sync.get(["spreadsheets"], function(re){
+                            let s_l = re.spreadsheets
+                            let s = s_l[request.index]
+                            s.file_id = f_id
+                            s.order = order
+                            s.dynam = is_dynam
+                            chrome.storage.sync.set({spreadsheets: s_l})
+                        })
+                    })
+                })
             });
-        });
-
-        getCookies(website, "order", function (id) {
-            console.log(id);
-            chrome.storage.sync.set({order: id}, function () {
-                console.log("Success adding order to sync!")
-                console.log(id)
-            })
-        })
-
-        getCookies(website, 'is_dynam', function (id) {
-            console.log(id)
-            chrome.storage.sync.set({is_dynam: id}, function () {
-                console.log("Success adding is_dynam to sync!")
-            })
-        })
+        }
     }
 );
 

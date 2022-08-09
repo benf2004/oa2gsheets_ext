@@ -103,7 +103,7 @@ document.getElementById('confirm').addEventListener('click', lifetime)
 document.getElementById('already_paid').addEventListener("click", login1)
 document.getElementById('lifetime').addEventListener("click", l_login)
 document.getElementById('monthly').addEventListener('click', m_login)
-document.getElementById('picker').addEventListener('click', picker_order)
+//document.getElementById('picker').addEventListener('click', picker_order)
 
 function check_trial(user) {
     const now = new Date();

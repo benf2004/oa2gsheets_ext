@@ -1,0 +1,49 @@
+body {
+    width: 350px
+}
+img {
+    width: 40%;
+    height: 40%;
+    padding: 10px;
+}
+nav {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+h4 {
+    text-align: center;
+}
+#email_div{
+    width: 300px;
+    margin-left: 25px
+}
+.btn {
+    margin: auto
+}
+h1 {
+    text-align: center
+}
+#monthly_div, #lifetime_div{
+    border: 1px solid dimgrey;
+}
+#outer1, #outer2{
+    padding: 15px
+}
+#oa2gsheets, #oa2gsheets_lifetime{
+    margin-left: 95px;
+}
+#dashboard{
+    margin-left: 55px;
+    margin-bottom: 10px;
+}
+.btn-funky-moon {
+    background: #A770EF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+#trial1{
+    margin-left: 90px;
+}
