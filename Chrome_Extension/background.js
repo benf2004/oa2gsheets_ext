@@ -33,7 +33,7 @@ chrome.runtime.onMessageExternal.addListener(
                             let s = s_l[request.index]
                             s.file_id = f_id
                             s.order = order
-                            s.dynam = is_dynam
+                            s.is_dynam = is_dynam
                             chrome.storage.sync.set({spreadsheets: s_l})
                         })
                     })

@@ -17,9 +17,9 @@ function add_config() {
     var c3 = r.insertCell(2)
     c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\"> </div>"
     var c4 = r.insertCell(3)
-    c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='fa-solid fa-arrow-up-right-from-square'></i></button>"
+    c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
     var c5 = r.insertCell(4)
-    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"fa-solid fa-trash-can-xmark\"></i></button>"
+    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
 
 
     chrome.storage.sync.get({spreadsheets: []}, function(result){
@@ -30,8 +30,27 @@ function add_config() {
 }
 
 document.getElementById('link').addEventListener('click', add_config)
+var doneTypingInterval = 800;  //time in ms (5 seconds)
+var typingTimer;
+document.body.onkeyup = function (e){
+    let f = e.target
+    clearTimeout(typingTimer);
+    if (f.value) {
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    }
+    function doneTyping(){
+        let row_ndx = f.parentElement.parentElement.rowIndex - 1
+        chrome.storage.sync.get(["spreadsheets"], function (re){
+            let s_l = re.spreadsheets
+            let s = s_l[row_ndx]
+            s.name = f.value
+            chrome.storage.sync.set({spreadsheets: s_l})
+        })
+    }
+}
 
-document.body.onclick = function(e){
+
+document.body.onclick = function(e) {
     e = e.target
     if (e.className && e.className.indexOf('manage') !== -1) {
         let f = e.parentElement
@@ -45,9 +64,9 @@ document.body.onclick = function(e){
     if (e.className && e.className.indexOf('rad') !== -1) {
         let def_el_index = e.parentElement.parentElement.parentElement.rowIndex - 1
         console.log(def_el_index)
-        chrome.storage.sync.get(['spreadsheets'], function(re){
+        chrome.storage.sync.get(['spreadsheets'], function (re) {
             let s = re.spreadsheets
-            for (let each of s){
+            for (let each of s) {
                 each.def = false
             }
             s[def_el_index].def = true
@@ -55,18 +74,37 @@ document.body.onclick = function(e){
         })
     }
     if (e.className && e.className.indexOf('trash') !== -1) {
-        let row_in = e.parentElement.parentElement.parentElement.rowIndex - 1
-        chrome.storage.sync.get(["spreadsheets"], function(re){
+        let row_in;
+        if (e.nodeName === "I") {
+            row_in = e.parentElement.parentElement.parentElement.rowIndex - 1
+            e.parentElement.parentElement.parentElement.remove()
+        }
+        else {
+            row_in = e.parentElement.parentElement.rowIndex - 1
+            e.parentElement.parentElement.remove()
+        }
+        chrome.storage.sync.get(["spreadsheets"], function (re) {
             let s = re.spreadsheets
             s.splice(row_in, 1)
             chrome.storage.sync.set({spreadsheets: s})
         })
+    }
+    if (e.className && e.className.indexOf('link') !== -1) {
+        console.log('EVENT')
+        let row_in;
         if (e.nodeName === "I") {
-            e.parentElement.parentElement.parentElement.remove()
+            row_in = e.parentElement.parentElement.parentElement.rowIndex - 1
         }
         else {
-            e.parentElement.parentElement.remove()
+            row_in = e.parentElement.parentElement.rowIndex - 1
         }
+        chrome.storage.sync.get(["spreadsheets"], function (re) {
+            let s_l = re.spreadsheets
+            console.log(s_l)
+            let s = s_l[row_in]
+            console.log(s)
+            window.open("https://docs.google.com/spreadsheets/d/" + s.file_id +"/edit", "_blank")
+        })
     }
 }
 
@@ -89,15 +127,15 @@ function add_row(name, default1=false){
         let row_in = r.rowIndex - 1
         if (s[row_in].file_id !== null) {
             c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Manage</button>"
-            c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='fa-solid fa-arrow-up-right-from-square'></i></button>"
+            c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         }
         else {
             c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Setup</button>"
-            c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='fa-solid fa-arrow-up-right-from-square'></i></button>"
+            c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         }
     })
     var c5 = r.insertCell(4)
-    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"fa-solid fa-trash-can-xmark\"></i></button>"
+    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
 }
 
 chrome.storage.sync.get({spreadsheets: []}, function(r){
