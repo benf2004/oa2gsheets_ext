@@ -11,7 +11,7 @@ function add_config() {
     var t = document.getElementById("table")
     var r = t.insertRow()
     var c1 = r.insertCell(0)
-    c1.innerHTML = "<input id='input' class='form-control form-control-sm' placeholder='Name'>"
+    c1.innerHTML = "<input class='form-control form-control-sm' placeholder='Name'>"
     var c2 = r.insertCell(1)
     c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Setup</button>"
     var c3 = r.insertCell(2)
@@ -53,10 +53,13 @@ document.body.onkeyup = function (e){
 document.body.onclick = function(e) {
     e = e.target
     if (e.className && e.className.indexOf('manage') !== -1) {
-        let f = e.parentElement
-        console.log(f)
-        let h = f.parentElement
-        console.log(h)
+        let h;
+        if (e.nodeName !== "I") {
+            h = e.parentElement.parentElement
+        }
+        else{
+            h = e.parentElement.parentElement.parentElement
+        }
         let row_num = h.rowIndex
         console.log(h.rowIndex)
         open_picker(row_num)
@@ -109,10 +112,11 @@ document.body.onclick = function(e) {
 }
 
 function add_row(name, default1=false){
+    console.log(name)
     var t = document.getElementById("table")
     var r = t.insertRow()
     var c1 = r.insertCell(0)
-    c1.innerHTML = "<input id='input' class='form-control form-control-sm' placeholder='Name' value=" + name + ">"
+    c1.innerHTML = "<input id='input' class='form-control form-control-sm' placeholder='Name' value='" + name + "'>"
     var c2 = r.insertCell(1)
     var c3 = r.insertCell(2)
     if (default1 === false) {
@@ -126,7 +130,7 @@ function add_row(name, default1=false){
         let s = re.spreadsheets
         let row_in = r.rowIndex - 1
         if (s[row_in].file_id !== null) {
-            c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Manage</button>"
+            c2.innerHTML = "<button class='btn btn-sm btn-outline-primary manage'><i class='manage fa-solid fa-gear'></button></i>"
             c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         }
         else {
@@ -143,6 +147,7 @@ chrome.storage.sync.get({spreadsheets: []}, function(r){
     for (let each of s){
         if (each.def === false){
             add_row(each.name)
+            console.log(each.name)
         }
         else{
             add_row(each.name,true)
