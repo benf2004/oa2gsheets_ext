@@ -84,14 +84,6 @@ function m_login(){
     monthly("login")
 }
 
-function picker_order(){
-    chrome.storage.sync.get({order: "none"}, function(result){
-        let order = result.order
-        console.log(result)
-        window.open("https://www.oa2gsheets.com/picker?order="+ order)
-    })
-}
-
 document.getElementById('dashboard').addEventListener('click', open_dashboard)
 document.getElementById('oa2gsheets').addEventListener("click", monthly)
 document.getElementById('oa2gsheets_lifetime').addEventListener("click", lifetime)
@@ -103,7 +95,6 @@ document.getElementById('confirm').addEventListener('click', lifetime)
 document.getElementById('already_paid').addEventListener("click", login1)
 document.getElementById('lifetime').addEventListener("click", l_login)
 document.getElementById('monthly').addEventListener('click', m_login)
-//document.getElementById('picker').addEventListener('click', picker_order)
 
 function check_trial(user) {
     const now = new Date();
