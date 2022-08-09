@@ -23,7 +23,7 @@
     }
   ],
   "externally_connectable": {
-    "matches": ["https://www.oa2gsheets.com/*"]
+    "matches": ["https://www.oa2gsheets.com/*", "*://localhost/*"]
   },
   "icons": {
     "16": "16x16.png",

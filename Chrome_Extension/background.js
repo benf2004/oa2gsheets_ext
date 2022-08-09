@@ -40,6 +40,12 @@ chrome.runtime.onMessageExternal.addListener(
                 })
             });
         }
+        if (request.message === "get_spreadsheets") {
+            chrome.storage.sync.get(["spreadsheets"], function (re) {
+                let s_l = re.spreadsheets
+                sendResponse(s_l)
+            })
+        }
     }
 );
 

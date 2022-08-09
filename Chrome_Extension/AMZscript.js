@@ -42,26 +42,41 @@ function main () {
         var url1 = document.location.href
         let title = document.getElementById('title_feature_div')
         title.insertAdjacentHTML('afterend', html);
-        chrome.storage.sync.get(['fileID'], function (result) {
-            const fileID = result.fileID
-            console.log(fileID)
-            chrome.storage.sync.get(['is_dynam'], function (result) {
-                const is_dynam = result.is_dynam
-                console.log(is_dynam)
-                console.log(typeof is_dynam)
-                chrome.storage.sync.get(['order'], function (result) {
-                    let asin = getASIN(url1)
-                    console.log(result)
-                    let domain_id = get_domain_id()
-                    const my_order = result.order
-                    console.log(my_order)
-                    let source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
-                    console.log("source is" + source)
-                    let frame1 = document.getElementById("input_oa2gsheets")
-                    frame1.setAttribute("src", source)
+        chrome.storage.sync.get({spreadsheets: null}, function (re){
+            if (re.spreadsheets === null) {
+                chrome.storage.sync.get(['fileID'], function (result) {
+                    const fileID = result.fileID
+                    chrome.storage.sync.get(['is_dynam'], function (result) {
+                        const is_dynam = result.is_dynam
+                        chrome.storage.sync.get(['order'], function (result) {
+                            let asin = getASIN(url1)
+                            let domain_id = get_domain_id()
+                            const my_order = result.order
+                            let source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
+                            let frame1 = document.getElementById("input_oa2gsheets")
+                            frame1.setAttribute("src", source)
+                        });
+                    });
                 });
-            });
-        });
+            }
+            else {
+                let s = re.spreadsheets
+                var fileID; var my_order; var asin; var is_dynam; var domain_id
+                for (let each of s){
+                    if (each.def === true){
+                        is_dynam = each.is_dynam
+                        fileID = each.file_id
+                        my_order = each.order
+                        asin = getASIN(url1)
+                        domain_id = get_domain_id()
+                    }
+                }
+                let source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
+                let frame1 = document.getElementById("input_oa2gsheets")
+                frame1.setAttribute("src", source)
+            }
+        })
+
     });
 }
 
