@@ -175,7 +175,9 @@ chrome.storage.sync.get(['fileID'], function (result) {
         c2.innerHTML = "<button class='btn btn-sm btn-outline-primary manage'><i class='manage fa-solid fa-gear'></button></i>"
         var c3 = r.insertCell(2)
         c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\" checked> </div>"
+        var c4 = r.insertCell(3)
         c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
+        var c5 = r.insertCell(4)
         c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
         chrome.storage.sync.get({spreadsheets: []}, function(result){
             let re = result.spreadsheets

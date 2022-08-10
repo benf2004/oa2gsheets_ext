@@ -8,11 +8,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.amazon.com/dp/*", "https://*.amazon.com/*/dp/*", "https://*.amazon.ca/dp/*", "https://*.amazon.ca/*/dp/*",
-        "https://*.amazon.co.uk/dp/*", "https://*.amazon.co.uk/*/dp/*", "https://*.amazon.com.mx/dp/*", "https://*.amazon.com.mx/*/dp/*",
-        "https://*.amazon.de/dp/*", "https://*.amazon.de/*/dp/*", "https://*.amazon.fr/dp/*", "https://*.amazon.fr/*/dp/*",
-        "https://*.amazon.co.jp/dp/*", "https://*.amazon.co.jp/*/dp/*", "https://*.amazon.it/dp/*", "https://*.amazon.it/*/dp/*",
-        "https://*.amazon.es/dp/*", "https://*.amazon.es/*/dp/*", "https://*.amazon.in/dp/*", "https://*.amazon.in/*/dp/*"],
+      "matches": ["https://*.amazon.com/*p/*", "https://*.amazon.com/*/*p/*", "https://*.amazon.ca/*p/*", "https://*.amazon.ca/*/*p/*",
+        "https://*.amazon.co.uk/*p/*", "https://*.amazon.co.uk/*/*p/*", "https://*.amazon.com.mx/*p/*", "https://*.amazon.com.mx/*/*p/*",
+        "https://*.amazon.de/*p/*", "https://*.amazon.de/*/*p/*", "https://*.amazon.fr/*p/*", "https://*.amazon.fr/*/*p/*",
+        "https://*.amazon.co.jp/*p/*", "https://*.amazon.co.jp/*/*p/*", "https://*.amazon.it/*p/*", "https://*.amazon.it/*/*p/*",
+        "https://*.amazon.es/*p/*", "https://*.amazon.es/*/*p/*", "https://*.amazon.in/*p/*", "https://*.amazon.in/*/*p/*"],
       "run_at": "document_idle",
       "js": ["AMZscript.js"]
     },
@@ -23,7 +23,7 @@
     }
   ],
   "externally_connectable": {
-    "matches": ["https://www.oa2gsheets.com/*", "*://localhost/*"]
+    "matches": ["https://www.oa2gsheets.com/*"]
   },
   "icons": {
     "16": "16x16.png",
