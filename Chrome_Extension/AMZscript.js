@@ -4,8 +4,11 @@ function getASIN(url) {
 
     function getURLSlice(url2) {
         for (let each in url2) {
-            if (urlArray[each] === "dp") {
+            if (urlArray[each] === "dp" || urlArray[each] === "gp") {
                 var nextSlice = Number(each) + 1
+                if (urlArray[nextSlice].length !== 10){
+                    nextSlice = Number(each) + 2
+                }
             }
         }
         return nextSlice
@@ -72,7 +75,7 @@ function main () {
                         domain_id = get_domain_id()
                     }
                 }
-                let source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
+                let source = "https://www.oa2gsheets.com/test/input_test?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
                 let frame1 = document.getElementById("input_oa2gsheets")
                 frame1.setAttribute("src", source)
             }

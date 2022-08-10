@@ -172,11 +172,11 @@ chrome.storage.sync.get(['fileID'], function (result) {
         var c1 = r.insertCell(0)
         c1.innerHTML = "<input id='input' class='form-control form-control-sm' placeholder='Name' value='Unnamed - Previously Linked'>"
         var c2 = r.insertCell(1)
-        c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Manage</button>"
+        c2.innerHTML = "<button class='btn btn-sm btn-outline-primary manage'><i class='manage fa-solid fa-gear'></button></i>"
         var c3 = r.insertCell(2)
-        c3.innerHTML = "<div class=\"form-check\">\n" +
-            "  <input class=\"form-check-input\" type=\"radio rad\" name=\"radio\" id=\"radio1\" checked>\n" +
-            "</div>"
+        c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\" checked> </div>"
+        c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
+        c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
         chrome.storage.sync.get({spreadsheets: []}, function(result){
             let re = result.spreadsheets
             chrome.storage.sync.get(["order"], function (o){
