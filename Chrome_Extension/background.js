@@ -28,7 +28,7 @@ chrome.runtime.onMessageExternal.addListener(
             getCookies(website, "fileID", function (f_id) {
                 getCookies(website, "order", function (order) {
                     getCookies(website, 'is_dynam', function (is_dynam) {
-                        chrome.storage.sync.get(["spreadsheets"], function(re){
+                        chrome.storage.sync.get(["spreadsheets"], function (re) {
                             let s_l = re.spreadsheets
                             let s = s_l[request.index]
                             s.file_id = f_id
@@ -45,6 +45,16 @@ chrome.runtime.onMessageExternal.addListener(
                 let s_l = re.spreadsheets
                 sendResponse(s_l)
             })
+        }
+        if (request.message === "get_prefs") {
+            chrome.storage.sync.get(["prefs"], function (re) {
+                let my_prefs = re.prefs
+                sendResponse(my_prefs)
+            })
+        }
+        if (request.message === "set_prefs") {
+            let new_prefs = request.prefs
+            chrome.storage.sync.set({prefs: new_prefs})
         }
     }
 );
