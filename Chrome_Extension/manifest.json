@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OA2Gsheets",
   "description": "OA2Gsheets lets you export product info directly from an Amazon product page to a Google Sheet.",
-  "version": "1.60",
+  "version": "1.61",
   "action": {
     "default_popup": "popup3.html"
   },
@@ -23,7 +23,7 @@
     }
   ],
   "externally_connectable": {
-    "matches": ["https://www.oa2gsheets.com/*"]
+    "matches": ["https://www.oa2gsheets.com/*", "http://localhost/*"]
   },
   "icons": {
     "16": "16x16.png",
@@ -45,10 +45,16 @@
         "https://www.amazon.it/*", "https://www.amazon.es/*", "https://www.amazon.in/*"]
     }
  ],
+  "oauth2": {
+    "client_id": "435069937149-ofcllquuief99nornnof5p2686o9i6km.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/drive.file", "profile"]
+  },
   "permissions": [
     "cookies",
     "storage",
     "tabs",
-    "webNavigation"
-  ]
+    "webNavigation",
+    "identity"
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjyQ/TlHesMnCtV4dq4OtqHWKNpBu8rVFrzNyBN3rxJgnJpHF3bRkVIc//Zm6zcVFrkYGiLkmYpupNoi1gm8R3eRm3PVVyzZX78zvP6s9HKyVddMKpsP+8XdLtbblnvlQjhAbkMGfgeeZAz4lWno4/wZLIBi9IL1Oj21P3uiTu6TU3j+hvGI6Vt2R03yquklnmnmAdp3YS+DsHepATRUHPQ8Ap3kaH0lbkxy2TkynAFVnJplsYXM1nrAYw+MT/luLUWSvrrGQ36jzRs4bEoPewHbxyDOhm4TeHbL38NbZX6txjvlPswt9aa722yd/xvzMVd8hMcL5fS7wcqT3aPcxXwIDAQAB"
 }

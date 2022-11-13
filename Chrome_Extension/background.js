@@ -40,6 +40,11 @@ chrome.runtime.onMessageExternal.addListener(
                 })
             });
         }
+        if (request.message === "id"){
+            chrome.identity.getAuthToken({interactive: true}, function (token) {
+                sendResponse({token: token})
+            });
+        }
         if (request.message === "get_spreadsheets") {
             chrome.storage.sync.get(["spreadsheets"], function (re) {
                 let s_l = re.spreadsheets
@@ -125,6 +130,11 @@ chrome.runtime.onMessage.addListener(
                 })
             });
         }
+        if (request === "id"){
+            chrome.identity.getAuthToken({interactive: false}, function (token,scopes) {
+                sendResponse({token: token, scopes: scopes})
+            });
+        }
         if (request === "monthly_activated"){
                 console.log("received message")
                 var extpay = ExtPay('oa2gsheets');
@@ -153,3 +163,4 @@ chrome.storage.sync.get(['oa_plan'], function result() {
         })
     })
 })
+

@@ -55,7 +55,10 @@ function main () {
                             let asin = getASIN(url1)
                             let domain_id = get_domain_id()
                             const my_order = result.order
-                            let source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
+                            let source;
+                            let token = response.token
+                            console.log(token)
+                            source = "https://www.oa2gsheets.com/input?fileID=" + fileID + "&o=" + my_order + "&asin=" + asin + "&dy=" + is_dynam + "&d_id=" + domain_id
                             let frame1 = document.getElementById("input_oa2gsheets")
                             frame1.setAttribute("src", source)
                         });

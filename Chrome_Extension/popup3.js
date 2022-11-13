@@ -185,6 +185,3 @@ function handle_paid(p) {
     }
 }
 is_paid()
-
-
-
