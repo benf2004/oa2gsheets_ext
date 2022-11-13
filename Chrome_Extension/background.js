@@ -24,21 +24,14 @@ const website = 'http://www.oa2gsheets.com/'
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
         if (request.message === "update_order") {
-            console.log("TRIGGERED")
-            getCookies(website, "fileID", function (f_id) {
-                getCookies(website, "order", function (order) {
-                    getCookies(website, 'is_dynam', function (is_dynam) {
-                        chrome.storage.sync.get(["spreadsheets"], function (re) {
-                            let s_l = re.spreadsheets
-                            let s = s_l[request.index]
-                            s.file_id = f_id
-                            s.order = order
-                            s.is_dynam = is_dynam
-                            chrome.storage.sync.set({spreadsheets: s_l})
-                        })
-                    })
-                })
-            });
+            chrome.storage.sync.get(["spreadsheets"], function (re) {
+                let s_l = re.spreadsheets
+                let s = s_l[request.index]
+                s.file_id = request.fileID
+                s.order = request.order
+                s.is_dynam = request.is_dynam
+                chrome.storage.sync.set({spreadsheets: s_l})
+            })
         }
         if (request.message === "id"){
             chrome.identity.getAuthToken({interactive: true}, function (token) {
