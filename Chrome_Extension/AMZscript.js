@@ -7,7 +7,10 @@ function getASIN(url) {
             if (urlArray[each] === "dp" || urlArray[each] === "gp") {
                 var nextSlice = Number(each) + 1
                 if (urlArray[nextSlice].length !== 10){
-                    nextSlice = Number(each) + 2
+                    console.log(urlArray)
+                    if (urlArray.length > nextSlice + 1) {
+                        nextSlice = Number(each) + 2
+                    }
                 }
             }
         }

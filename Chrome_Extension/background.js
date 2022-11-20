@@ -45,7 +45,7 @@ chrome.runtime.onMessageExternal.addListener(
             })
         }
         if (request.message === "get_prefs") {
-            chrome.storage.sync.get(["prefs"], function (re) {
+            chrome.storage.sync.get({['prefs']: {sales_tax_rate: 0, ship_amz_rate: 0}}, function (re) {
                 let my_prefs = re.prefs
                 sendResponse(my_prefs)
             })
@@ -108,12 +108,12 @@ chrome.runtime.onMessage.addListener(
                 extpay.getUser().then(user => {
                     console.log("MESSAGE RECIEVED")
                     const now = new Date();
-                    const days_7 = 1000*60*60*24*7 // in milliseconds
+                    const days_14 = 1000*60*60*24*14 // in milliseconds
                     let send;
                     if (user.paid) {
                         send = "true"
                     }
-                    else if (user.trialStartedAt && (now - user.trialStartedAt) < days_7){
+                    else if (user.trialStartedAt && (now - user.trialStartedAt) < days_14){
                         send = "true"
                     }
                     else {
@@ -124,7 +124,7 @@ chrome.runtime.onMessage.addListener(
             });
         }
         if (request === "id"){
-            chrome.identity.getAuthToken({interactive: false}, function (token,scopes) {
+            chrome.identity.getAuthToken({interactive: true}, function (token,scopes) {
                 sendResponse({token: token, scopes: scopes})
             });
         }
@@ -135,7 +135,7 @@ chrome.runtime.onMessage.addListener(
                 sendResponse("monthly started")
 
         }
-        if (request === "lifetime_activated"){
+        if (request === "lifetime_activated") {
             console.log("received message")
             var extpay = ExtPay('oa2gsheets-lifetime')
             extpay.startBackground();

@@ -1,10 +1,12 @@
 body {
-    width: 350px
+    width: 400px;
 }
 img {
     width: 40%;
     height: 40%;
-    padding: 10px;
+    padding: 5px;
+    margin-bottom: 0;
+    margin-top: 0
 }
 nav {
     margin-left: 10px;
@@ -30,10 +32,10 @@ h1 {
     padding: 15px
 }
 #oa2gsheets, #oa2gsheets_lifetime{
-    margin-left: 95px;
+    margin-left: 110px;
 }
 #dashboard{
-    margin-left: 55px;
+    margin-left: 58px;
     margin-bottom: 10px;
 }
 .btn-funky-moon {
@@ -45,8 +47,14 @@ h1 {
 }
 
 #trial1{
-    margin-left: 90px;
+    margin-left: 100px;
 }
 .form-control-sm{
     font-size: 10pt;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

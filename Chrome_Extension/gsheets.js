@@ -3,7 +3,7 @@ function open_picker(r_num){
         let s_list = r.spreadsheets
         let i_num = r_num - 1
         let s = s_list[i_num]
-        window.open("https://www.oa2gsheets.com/picker?order=" + s.order+ "&index_num=" + i_num +"&f_id=" + s.file_id, "_blank")
+        window.open(`https://www.oa2gsheets.com/picker?order=${s.order}&index_num=${i_num}&f_id=${s.file_id}`, "_blank")
     })
 }
 
@@ -21,7 +21,7 @@ function add_config() {
         is_def = true
     }
     else{
-        c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\"> </div>"
+        c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\" disabled> </div>"
         is_def = false
     }
     var c4 = r.insertCell(3)
@@ -38,7 +38,7 @@ function add_config() {
 }
 
 document.getElementById('link').addEventListener('click', add_config)
-var doneTypingInterval = 800;  //time in ms (5 seconds)
+var doneTypingInterval = 200;  //time in ms (5 seconds)
 var typingTimer;
 document.body.onkeyup = function (e){
     let f = e.target
@@ -84,7 +84,7 @@ document.body.onclick = function(e) {
             chrome.storage.sync.set({spreadsheets: s})
         })
     }
-    if (e.className && e.className.indexOf('trash') !== -1) {
+    if (e.className && e.className.indexOf('trash') !== -1 && e.id !== "trashIcon") {
         let row_in;
         if (e.nodeName === "I") {
             row_in = e.parentElement.parentElement.parentElement.rowIndex - 1
@@ -114,7 +114,7 @@ document.body.onclick = function(e) {
             console.log(s_l)
             let s = s_l[row_in]
             console.log(s)
-            window.open("https://docs.google.com/spreadsheets/d/" + s.file_id +"/edit", "_blank")
+            window.open(`https://docs.google.com/spreadsheets/d/${s.file_id}/edit`, "_blank")
         })
     }
 }
@@ -142,6 +142,7 @@ function add_row(name, default1=false){
             c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         }
         else {
+            c3.innerHTML = "<div class=\"form-check\"> <input class=\"form-check-input rad\" type=\"radio\" name=\"radio\" disabled> </div>"
             c2.innerHTML = "<button class='manage btn btn-sm btn-outline-primary'>Setup</button>"
             c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         }
