@@ -2,9 +2,9 @@
   "manifest_version": 3,
   "name": "OA2Gsheets",
   "description": "OA2Gsheets lets you export product info directly from an Amazon product page to a Google Sheet.",
-  "version": "1.80",
+  "version": "1.8.1",
   "action": {
-    "default_popup": "popup3.html"
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
@@ -14,22 +14,22 @@
         "https://*.amazon.co.jp/*p/*", "https://*.amazon.co.jp/*/*p/*", "https://*.amazon.it/*p/*", "https://*.amazon.it/*/*p/*",
         "https://*.amazon.es/*p/*", "https://*.amazon.es/*/*p/*", "https://*.amazon.in/*p/*", "https://*.amazon.in/*/*p/*"],
       "run_at": "document_idle",
-      "js": ["AMZscript.js"]
+      "js": ["content_scripts/AMZscript.js"]
     },
     {
       "matches": ["https://extensionpay.com/*"],
-      "js": ["ExtPay.js"],
+      "js": ["content_scripts/ExtPay.js"],
       "run_at": "document_start"
     }
   ],
   "externally_connectable": {
-    "matches": ["https://www.oa2gsheets.com/*"]
+    "matches": ["https://www.oa2gsheets.com/*", "*://localhost/*"]
   },
   "icons": {
-    "16": "16x16.png",
-    "32": "32x32.png",
-    "48": "48x48.png",
-    "128": "128x128.png"
+    "16": "icons/16x16.png",
+    "32": "icons/32x32.png",
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -39,7 +39,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["amz.html"],
+      "resources": ["content_scripts/amz.html"],
       "matches": ["https://www.amazon.com/*", "https://www.amazon.ca/*", "https://www.amazon.co.uk/*",
         "https://www.amazon.com.mx/*", "https://www.amazon.de/*", "https://www.amazon.fr/*", "https://www.amazon.co.jp/*",
         "https://www.amazon.it/*", "https://www.amazon.es/*", "https://www.amazon.in/*"]

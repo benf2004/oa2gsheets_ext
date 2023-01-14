@@ -1,4 +1,4 @@
-importScripts('ExtPay.js') // or `import` / `require` if using a bundler
+importScripts('content_scripts/ExtPay.js') // or `import` / `require` if using a bundler
 
 chrome.tabs.onUpdated.addListener(
     function(tabId, changeInfo, tab) {
@@ -45,7 +45,7 @@ chrome.runtime.onMessageExternal.addListener(
             })
         }
         if (request.message === "get_prefs") {
-            chrome.storage.sync.get({['prefs']: {sales_tax_rate: 0, ship_amz_rate: 0}}, function (re) {
+            chrome.storage.sync.get({['prefs']: {target_roi: 0, min_profit: 0, ship_amz_rate: 0, sales_tax_rate: 0, other: 0}}, function (re) {
                 let my_prefs = re.prefs
                 sendResponse(my_prefs)
             })

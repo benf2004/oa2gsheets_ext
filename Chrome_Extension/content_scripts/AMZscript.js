@@ -44,7 +44,7 @@ function get_domain_id() {
 }
 
 function main () {
-    fetch(chrome.runtime.getURL('/amz.html')).then(r => r.text()).then(html => {
+    fetch(chrome.runtime.getURL('/content_scripts/amz.html')).then(r => r.text()).then(html => {
         var url1 = document.location.href
         let title = document.getElementById('title_feature_div')
         title.insertAdjacentHTML('afterend', html);
@@ -59,8 +59,6 @@ function main () {
                             let domain_id = get_domain_id()
                             const my_order = result.order
                             let source;
-                            let token = response.token
-                            console.log(token)
                             source = `https://www.oa2gsheets.com/input?fileID=${fileID}&o=${my_order}&asin=${asin}&dy=${is_dynam}&d_id=${domain_id}`
                             let frame1 = document.getElementById("input_oa2gsheets")
                             frame1.setAttribute("src", source)
