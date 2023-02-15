@@ -58,8 +58,7 @@ function main () {
                             let asin = getASIN(url1)
                             let domain_id = get_domain_id()
                             const my_order = result.order
-                            let source;
-                            source = `https://www.oa2gsheets.com/input?fileID=${fileID}&o=${my_order}&asin=${asin}&dy=${is_dynam}&d_id=${domain_id}`
+                            let source = `https://www.oa2gsheets.com/input?fileID=${fileID}&o=${my_order}&asin=${asin}&dy=${is_dynam}&d_id=${domain_id}`
                             let frame1 = document.getElementById("input_oa2gsheets")
                             frame1.setAttribute("src", source)
                         });
@@ -71,7 +70,6 @@ function main () {
                 var fileID; var my_order; var asin; var is_dynam; var domain_id
                 for (let each of s){
                     if (each.def == true){
-                        console.log(each)
                         is_dynam = each.is_dynam
                         fileID = each.file_id
                         my_order = each.order
@@ -79,9 +77,23 @@ function main () {
                         domain_id = get_domain_id()
                     }
                 }
-                let source = `https://www.oa2gsheets.com/input?fileID=${fileID}&o=${my_order}&asin=${asin}&dy=${is_dynam}&d_id=${domain_id}`
-                let frame1 = document.getElementById("input_oa2gsheets")
-                frame1.setAttribute("src", source)
+                chrome.storage.sync.get({keepa: null}, function (result) {
+                    let keepa = result.keepa
+                    console.log(keepa)
+                    chrome.runtime.sendMessage({message: "validKey", key: keepa}, function (response) {
+                        console.log(response)
+                        if (response.valid === true) {
+                            let source = `https://www.oa2gsheets.com/input?key=${keepa}&fileID=${fileID}&o=${my_order}&asin=${asin}&dy=${is_dynam}&d_id=${domain_id}`
+                            let frame1 = document.getElementById("input_oa2gsheets")
+                            frame1.setAttribute("src", source)
+                        }
+                        else {
+                            let source = `https://www.oa2gsheets.com/nokey`
+                            let frame1 = document.getElementById("input_oa2gsheets")
+                            frame1.setAttribute("src", source)
+                        }
+                    })
+                })
             }
         })
 
@@ -91,9 +103,7 @@ function main () {
 
 chrome.runtime.sendMessage('is_paid', function (response) {
         let is_paid = response;
-        console.log(is_paid)
         if (is_paid === "true") {
-            console.log("PAID")
             main()
         }
         else {

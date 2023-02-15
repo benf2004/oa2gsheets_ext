@@ -11,16 +11,6 @@ chrome.tabs.onUpdated.addListener(
     }
 );
 
-function getCookies(domain, name, callback) {
-    chrome.cookies.get({"url": domain, "name": name}, function (cookie) {
-        if (callback) {
-            callback(cookie.value);
-        }
-    });
-}
-
-const website = 'http://www.oa2gsheets.com/'
-
 chrome.runtime.onMessageExternal.addListener(
     function(request, sender, sendResponse) {
         if (request.message === "update_order") {
@@ -57,45 +47,6 @@ chrome.runtime.onMessageExternal.addListener(
     }
 );
 
-const filter2 = {
-    url: [
-        {
-            urlMatches: 'https://extensionpay.com/extension/oa2gsheets-lifetime/paid',
-        },
-    ],
-};
-
-chrome.webNavigation.onCompleted.addListener(() => {
-    chrome.storage.sync.get(['oa_email'], function (result) {
-        getCookies(website, "visited_l", function(id) {
-            if (id !== "true") {
-                let encode_email = encodeURIComponent(result.oa_email)
-                let thanks_url = "https://www.oa2gsheets.com/thanks_lifetime?mail=" + encode_email
-                chrome.tabs.create({url: thanks_url});
-            }
-        })
-    })
-}, filter2)
-
-const filter3 = {
-    url: [
-        {
-            urlMatches: 'https://extensionpay.com/extension/oa2gsheets/subscribed',
-        },
-    ],
-}
-
-chrome.webNavigation.onCompleted.addListener(() => {
-    chrome.storage.sync.get(['oa_email'], function (result) {
-        getCookies(website, "visited", function(id) {
-            if (id !== "true") {
-                let encode_email = encodeURIComponent(result.oa_email)
-                let thanks_url = "https://www.oa2gsheets.com/thank_you?mail=" + encode_email
-                chrome.tabs.create({url: thanks_url});
-            }
-        })
-    })
-}, filter3)
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -142,6 +93,26 @@ chrome.runtime.onMessage.addListener(
             sendResponse("lifetime activated")
         }
         return true;
+    }
+);
+
+async function validKey(key){
+    console.log(key)
+    if (key === null) {
+        return false;
+    }
+    let response = await fetch(`https://api.keepa.com/token?key=${key}`)
+    let data = await response.json()
+    return data.tokensLeft !== 0
+}
+
+chrome.runtime.onMessage.addListener(
+    async function(request, sender, sendResponse) {
+        if (request?.message === "validKey"){
+            let key = request.key
+            let valid = await validKey(key)
+            sendResponse({valid: valid})
+        }
     }
 );
 

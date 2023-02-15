@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OA2Gsheets",
   "description": "OA2Gsheets lets you export product info directly from an Amazon product page to a Google Sheet.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "action": {
     "default_popup": "popup/popup.html"
   },
@@ -53,7 +53,7 @@
     "cookies",
     "storage",
     "tabs",
-    "webNavigation",
+    "activeTab",
     "identity"
   ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjyQ/TlHesMnCtV4dq4OtqHWKNpBu8rVFrzNyBN3rxJgnJpHF3bRkVIc//Zm6zcVFrkYGiLkmYpupNoi1gm8R3eRm3PVVyzZX78zvP6s9HKyVddMKpsP+8XdLtbblnvlQjhAbkMGfgeeZAz4lWno4/wZLIBi9IL1Oj21P3uiTu6TU3j+hvGI6Vt2R03yquklnmnmAdp3YS+DsHepATRUHPQ8Ap3kaH0lbkxy2TkynAFVnJplsYXM1nrAYw+MT/luLUWSvrrGQ36jzRs4bEoPewHbxyDOhm4TeHbL38NbZX6txjvlPswt9aa722yd/xvzMVd8hMcL5fS7wcqT3aPcxXwIDAQAB"
