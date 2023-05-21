@@ -27,7 +27,7 @@ function add_config() {
     var c4 = r.insertCell(3)
     c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link' disabled><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
     var c5 = r.insertCell(4)
-    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
+    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash\"></i></button>"
 
 
     chrome.storage.sync.get({spreadsheets: []}, function(result){
@@ -148,7 +148,7 @@ function add_row(name, default1=false){
         }
     })
     var c5 = r.insertCell(4)
-    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
+    c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash\"></i></button>"
 }
 
 chrome.storage.sync.get({spreadsheets: []}, function(r){
@@ -179,7 +179,7 @@ chrome.storage.sync.get(['fileID'], function (result) {
         var c4 = r.insertCell(3)
         c4.innerHTML = "<button class='btn btn-sm btn-outline-primary link'><i class='link fa-solid fa-arrow-up-right-from-square'></i></button>"
         var c5 = r.insertCell(4)
-        c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash-can-xmark\"></i></button>"
+        c5.innerHTML = "<button class='btn btn-sm btn-outline-danger trash'><i class=\"trash fa-solid fa-trash\"></i></button>"
         chrome.storage.sync.get({spreadsheets: []}, function(result){
             let re = result.spreadsheets
             chrome.storage.sync.get(["order"], function (o){
